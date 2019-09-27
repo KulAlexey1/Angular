@@ -1,0 +1,45 @@
+<div class="row">
+    <div class="col-xs-8">
+        <form name="projectForm" #f="ngForm" (submit)="onSubmit(f)">
+            <div class="form-group">
+                <label for="projectName">Project Name</label>
+                <input type="text" class="form-control" name="projectName" ngModel required
+                    appNotTestValueAsyncValidator #projName="ngModel">
+                <div *ngIf="projName.errors != null && projName.touched">
+                    <span class="text-danger" *ngIf="projName.errors['required']">
+                        Please enter Project Name
+                    </span>
+                    <span class="text-danger" *ngIf="projName.errors['notTestValue']">
+                        Please enter Project Name different from Test
+                    </span>
+                </div>
+            </div>
+            <div class="form-group">
+                <label for="email">Email</label>
+                <input type="email" class="form-control" name="email" ngModel required email #eml="ngModel">
+
+                <div *ngIf="eml.errors != null && eml.touched">
+                    <span class="text-danger" *ngIf="eml.errors['required']">
+                        Please enter Email
+                    </span>
+                    <span class="text-danger" *ngIf="eml.errors['email']">
+                        Please enter correct Email
+                    </span>
+                </div>
+            </div>
+            <div class="form-group">
+                <label for="projectStatus">Project Status</label>
+                <select class="form-control" name="projectStatus" ngModel #projStatus="ngModel" required>
+                    <option value="" selected>Please select a value</option>
+                    <option *ngFor="let projStatus of projectStatuses" [value]="projStatus.id">
+                        {{projStatus.name}}
+                    </option>
+                </select>
+            </div>
+            <div class="form-group">
+                <button class="btn btn-primary" [disabled]="!f.valid">Submit</button>
+                <button class="btn btn-primary">Submit</button>
+            </div>
+        </form>
+    </div>
+</div>
